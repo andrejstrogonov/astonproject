@@ -4,7 +4,7 @@ package org.astonlearning.quiclsortapplication.customcollection;
  * Список элементов. При добавлении саморасширяется.
  * @author Мазур Егор
  * @version 1.0
- * @param <T> тип элементов, хранящихся в этом списке
+ * @param <T> тип элементов, хранящихся в этом списке.
  */
 public class CustomArrayList<T> {
     /** Массив храник элементы коллекции */
