@@ -4,11 +4,12 @@ import java.util.AbstractList;
 
 /**
  * Список элементов. При добавлении саморасширяется
+ * 
  * @author Мазур Егор
  * @version 1.0
  * @param <T> тип элементов, хранящихся в этом списке
  */
-public class CustomArrayList<T> extends AbstractList<T>{
+public class CustomArrayList<T> extends AbstractList<T> {
     /** Массив храник элементы коллекции */
     private Object[] elements;
     /** Размер коллекции */
@@ -25,6 +26,7 @@ public class CustomArrayList<T> extends AbstractList<T>{
      *
      * @return число элементов в этом списке
      */
+    @Override
     public int size() {
         return this.size;
     }
@@ -64,9 +66,41 @@ public class CustomArrayList<T> extends AbstractList<T>{
 
             elements = newElements;
         }
+        
         elements[size] = element;
         size++;
+        /** Увеличиваем счетчик изменеий */
+        modCount++;
+
         return true;
+    }
+
+    /**
+     * Добавляет элемент в конец списка. Если внутренний массив заполнен,
+     * его емкость автоматически увеличивается
+     *
+     * @return {@code true} успешное добавление элемента.
+     * @param element элемент, который необходимо добавить в список
+     */
+    @Override
+    public T remove(int index) {
+        checkIndex(index);
+
+        T oldValue = (T) elements[index];
+        int elementsToMove = size - index - 1;
+
+        if (elementsToMove > 0) {
+            for (int i = index; i < size - 1; i++) {
+                elements[i] = elements[i + 1];
+            }
+        }
+
+        size--;
+        elements[size] = null;
+        /** Увеличиваем счетчик изменеий */
+        modCount++;
+
+        return oldValue;
     }
 
     /**
