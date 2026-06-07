@@ -29,7 +29,7 @@ public class Car implements Comparable<Car> {
     /**
      * Конструктор для инициализации объекта через билдер.
      *
-     * @param builder экземпляр строителя, содержащий параметры автомобиля
+     * @param builder экземпляр строителя, содержащий параметры автомобиля.
      */
     public Car(Builder builder) {
         this.model = builder.model;
