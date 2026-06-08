@@ -3,7 +3,7 @@ package org.astonlearning.quiclsortapplication.input;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.astonlearning.quiclsortapplication.Car;
 import org.astonlearning.quiclsortapplication.validation.ValidationUtil;
@@ -21,10 +21,10 @@ public class ManualInput implements InputProvider {
     public List<Car> load() {
         List<Car> cars = new ArrayList<>();
 
-        IntStream.range(0, size)
-                .mapToObj(i -> readCar())
-                .filter(ValidationUtil::isValid)
-                .forEach(cars::add);
+        Stream.generate(this::readCar)
+                    .filter(ValidationUtil::isValid)
+                    .limit(size)
+                    .forEach(cars::add); 
 
         return cars;
     }
@@ -38,6 +38,7 @@ public class ManualInput implements InputProvider {
             int year = scanner.nextInt();
 
             return new Car(power, model, year);
+            
         } catch (Exception e) {
             scanner.nextLine();
             return null;

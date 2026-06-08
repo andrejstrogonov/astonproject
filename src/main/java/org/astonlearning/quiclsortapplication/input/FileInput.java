@@ -11,9 +11,11 @@ import org.astonlearning.quiclsortapplication.validation.ValidationUtil;
 
 public class FileInput implements InputProvider {
     private final String filePath;
+    private final int size;
 
-    public FileInput(String filePath) {
+    public FileInput(String filePath, int size) {
         this.filePath = filePath;
+        this.size = size;
     }
 
     @Override
@@ -22,6 +24,7 @@ public class FileInput implements InputProvider {
             return Files.lines(Path.of(filePath))
                         .map(this::parseCar)
                         .filter(ValidationUtil::isValid)
+                        .limit(size)
                         .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException("Error reading file: " + filePath, e);
@@ -32,12 +35,17 @@ public class FileInput implements InputProvider {
         try {
             String[] parts = line.trim().split("\\s+");
 
+            if (parts.length != 3) {
+                return null;
+            }
+
             int power = Integer.parseInt(parts[0]);
             String model = parts[1];
             int year = Integer.parseInt(parts[2]);
 
             return new Car(power, model, year);
-        } catch (Exception e) {
+
+        } catch (NumberFormatException e) {
             return null;
         }
     }
