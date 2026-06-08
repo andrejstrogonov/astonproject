@@ -1,6 +1,7 @@
 package org.astonlearning.quiclsortapplication;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * Класс - сущность автомобиля
@@ -105,7 +106,7 @@ public class Car implements Comparable<Car> {
      * Сравнивает текущий экземпляр класса {@code Car} с указанным объектом на
      * равенство
      *
-     * @param obj объект для сравнения с текущим автомобилем
+     * @param o объект для сравнения с текущим автомобилем
      * @return {@code true}, если указанный объект равен данному автомобилю
      */
     @Override
@@ -122,7 +123,7 @@ public class Car implements Comparable<Car> {
             return false;
         if (this.productionYear != car.productionYear)
             return false;
-        return this.model != null ? this.model.equals(car.model) : car.model == null;
+        return Objects.equals(this.model, car.model);
     }
 
     /**
