@@ -1,0 +1,44 @@
+#-------------------------------------------------------------------------------#
+#            Discover all capabilities of Qodana in our documentation           #
+#             https://www.jetbrains.com/help/qodana/about-qodana.html           #
+#-------------------------------------------------------------------------------#
+
+name: Qodana
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+      - dev-main-1
+      - 4-реализация-коллекций
+      - 5-интерфейса взаимодействия с файлами
+      - 3-реализация компараторов и стратегий
+      - 2-реализация всего задания
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v6  # Обновлено до стабильной v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@v2026  # Рекомендуется использовать проверенную стабильную версию экшена
+        with:
+          # Принудительно запускаем бесплатный open-source образ для Java/JVM
+          args: --linter,jetbrains/qodana-jvm-community:latest
+
+          # Сохраняем вашу исходную функциональность
+          pr-mode: false
+          use-caches: true
+          post-pr-comment: true
+          use-annotations: true
+          upload-result: false
+          push-fixes: 'none'

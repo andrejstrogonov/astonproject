@@ -1,0 +1,36 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "master", "dev-main-1","4-реализация-коллекций", "5-интерфейса взаимодействия с файлами","3-реализация компараторов и стратегий","2-реализация всего задания"]
+  pull_request:
+    branches: [ "master", "dev-main-1","4-реализация-коллекций", "5-интерфейса взаимодействия с файлами","3-реализация компараторов и стратегий","2-реализация всего задания" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v5
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean compile
+
+      - name: Verify build
+        run: mvn verify
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
