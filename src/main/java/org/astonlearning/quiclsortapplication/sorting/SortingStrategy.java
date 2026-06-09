@@ -3,8 +3,8 @@ package org.astonlearning.quiclsortapplication.sorting;
 import java.util.List;
 import java.util.function.Predicate;
 
-/**
- * @param <T> тип элементов, которые будут сортироваться чтоб не было жесткой привязки к классу Car
+/*
+   <T> тип элементов, которые будут сортироваться чтоб не было жесткой привязки к классу Car
  */
 public interface SortingStrategy<T> {
     /*

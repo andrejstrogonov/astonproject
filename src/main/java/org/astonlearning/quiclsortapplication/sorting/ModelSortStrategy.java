@@ -4,7 +4,9 @@ package org.astonlearning.quiclsortapplication.sorting;
   Стратегия сортировки автомобилей по их модели в алфавитном порядке
  */
 
- final class ModelSortStrategy extends AbstractQuickSortStrategy<Car> {
+import org.astonlearning.quiclsortapplication.Car;
+
+final class ModelSortStrategy extends AbstractQuickSortStrategy<Car> {
 
     @Override
     protected int compare(Car o1, Car o2) {
