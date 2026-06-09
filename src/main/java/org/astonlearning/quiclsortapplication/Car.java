@@ -31,7 +31,7 @@ public class Car implements Comparable<Car> {
      *
      * @param builder экземпляр строителя, содержащий параметры автомобиля.
      */
-    public Car(Builder builder) {
+    private Car(Builder builder) {
         this.model = builder.model;
         this.power = builder.power;
         this.year = builder.year;
@@ -128,9 +128,11 @@ public class Car implements Comparable<Car> {
 
         Car car = (Car) o;
 
-        if (this.power != car.power) return false;
-        if (this.year != car.year) return false;
-        return this.model != null ? this.model.equals(car.model) : car.model == null;
+        if (this.power != car.power)
+            return false;
+        if (this.productionYear != car.productionYear)
+            return false;
+        return this.model != null ? this.model.equalsIgnoreCase(car.model) : car.model == null;
     }
 
     /**
@@ -149,7 +151,7 @@ public class Car implements Comparable<Car> {
      */
     @Override
     public int hashCode() {
-        int result = (model != null ? model.hashCode() : 0);
+        int result = (model != null ? model.toLowerCase().hashCode() : 0);
         result = 31 * result + power;
         result = 31 * result + year;
         return result;
