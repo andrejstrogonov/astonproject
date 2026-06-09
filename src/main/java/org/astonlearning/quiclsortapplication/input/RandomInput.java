@@ -25,7 +25,7 @@ public class RandomInput implements InputProvider{
     }
 
     private Car generateCar() {
-        return new Car(generatePower(), generateModel(), generateYear());
+        return new Car.Builder().setPower(generatePower()).setModel(generateModel()).setProductionYear(generateYear()).build();
     }
 
     private int generatePower() {

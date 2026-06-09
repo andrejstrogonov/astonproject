@@ -43,7 +43,7 @@ public class FileInput implements InputProvider {
             String model = parts[1];
             int year = Integer.parseInt(parts[2]);
 
-            return new Car(power, model, year);
+            return new Car.Builder().setPower(power).setModel(model).setProductionYear(year).build();
 
         } catch (NumberFormatException e) {
             return null;

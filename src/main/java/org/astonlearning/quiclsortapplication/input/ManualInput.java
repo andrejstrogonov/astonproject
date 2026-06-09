@@ -37,7 +37,7 @@ public class ManualInput implements InputProvider {
             String model = scanner.next();
             int year = scanner.nextInt();
 
-            return new Car(power, model, year);
+            return new Car.Builder().setPower(power).setModel(model).setProductionYear(year).build();
             
         } catch (Exception e) {
             scanner.nextLine();
