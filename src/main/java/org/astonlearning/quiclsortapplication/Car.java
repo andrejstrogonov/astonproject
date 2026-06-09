@@ -1,12 +1,11 @@
 package org.astonlearning.quiclsortapplication;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 /**
- * Класс - сущность автомобиля
+ * Класс - сущность автомобиля.
  * 
- * Для создания экземпляров класса используется {@link Builder}
+ * Для создания экземпляров класса используется {@link Builder}.
  * </p>
  * 
  * @author Мазур Егор
@@ -14,27 +13,28 @@ import java.util.Objects;
  * @since 2026-06-03
  */
 public class Car implements Comparable<Car> {
-    /** Наименование марки автомобиля */
-    private final String model;
-    /** Мощность автомобиля в лошадиных силах */
-    private final int power;
-    /** Год производства автомобиля */
-    private final int productionYear;
-    /** Компаратор для сравнения экземпляров */
-    private static final Comparator<Car> CAR_COMPARATOR = Comparator
-            .comparing(Car::getModel, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)) 
-            .thenComparingInt(Car::getPower)
-            .thenComparingInt(Car::getProductionYear);
+    /** Паименование марки автомобиля. */
+    private String model;
+    /** Мощность автомобиля в лошадиных силах. */
+    private int power;
+    /** Год производства автомобиля. */
+    private int year;
+
+    public Car(int power, String model, int year){
+        this.model = model;
+        this.power = power;
+        this.year = year;
+    }
 
     /**
-     * Конструктор для инициализации объекта через билдер
+     * Конструктор для инициализации объекта через билдер.
      *
-     * @param builder экземпляр строителя, содержащий параметры автомобиля
+     * @param builder экземпляр строителя, содержащий параметры автомобиля.
      */
     private Car(Builder builder) {
         this.model = builder.model;
         this.power = builder.power;
-        this.productionYear = builder.productionYear;
+        this.year = builder.year;
     }
 
     /** @return марка автомобиля */
@@ -49,20 +49,20 @@ public class Car implements Comparable<Car> {
 
     /** @return год производства автомобиля */
     public int getProductionYear() {
-        return productionYear;
+        return year;
     }
 
     /** @return строковое представления автомобиля {@code Car} */
     @Override
     public String toString() {
-        return String.format("Car{model='%s', power=%d л.с., year=%d}", model, power, productionYear);
+        return String.format("Car{model='%s', power=%d л.с., year=%d}", model, power, year);
     }
 
-    /** Вложенный класс, для пошагового создания экземпляров класса {@link Car} */
+    /** Вложенный класс, для пошагового создания экземпляров класса {@link Car}. */
     public static class Builder {
         private String model;
         private int power;
-        private int productionYear;
+        private int year;
 
         /**
          * @param model название модели автомобиля
@@ -83,17 +83,17 @@ public class Car implements Comparable<Car> {
         }
 
         /**
-         * @param productionYear год выпуска автомобиля
+         * @param power год выпуска автомобиля
          * @return экземпляр строителя для цепочки вызовов
          */
-        public Builder setProductionYear(int productionYear) {
-            this.productionYear = productionYear;
+        public Builder setProductionYear(int year) {
+            this.year = year;
             return this;
         }
 
         /**
          * Создает и возвращает готовый объект класса {@link Car}
-         * на основе переданных параметров
+         * на основе переданных параметров.
          *
          * @return новый объект {@link Car}
          */
@@ -103,11 +103,20 @@ public class Car implements Comparable<Car> {
     }
 
     /**
+     * {@inheritDoc}
+     * 
+     * <p>
      * Сравнивает текущий экземпляр класса {@code Car} с указанным объектом на
-     * равенство
+     * равенство.
+     * Два объекта класса {@code Car} считаются равными тогда и только тогда,
+     * когда совпадают их мощность, модель и год производства.
+     * </p>
      *
-     * @param o объект для сравнения с текущим автомобилем
+     * @param obj объект для сравнения с текущим автомобилем
      * @return {@code true}, если указанный объект равен данному автомобилю
+     *         {@code Car};
+     *         {@code false} если объекты не равны
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object o) {
@@ -127,28 +136,36 @@ public class Car implements Comparable<Car> {
     }
 
     /**
-     * Возвращает значение хэш-кода для автомобиля
+     * {@inheritDoc}
+     * 
+     * <p>
+     * Возвращает значение хэш-кода для автомобиля. Хэш-код генерируется
+     * на основе всех полей класса (мощность, модель, год производства),
+     * что обеспечивает выполнение общего контракта: у равных объектов
+     * по методу {@link #equals(Object)} всегда будут одинаковые хэш-коды.
+     * </p>
      *
-     * @return целое число, представляющее хэш-код экземпляра
+     * @return целое число, представляющее хэш-код данного объекта
+     * @see Object#hashCode()
+     * @see #equals(Object)
      */
     @Override
     public int hashCode() {
         int result = (model != null ? model.toLowerCase().hashCode() : 0);
         result = 31 * result + power;
-        result = 31 * result + productionYear;
+        result = 31 * result + year;
         return result;
     }
 
-    /** Сравниваем экземпляры класса через компаратор
-     * 
-     * @return возвращаем результат сравнения
-     */
     @Override
     public int compareTo(Car otherCar) {
         if (otherCar == null) {
-            throw new NullPointerException("Сравниваемый объект не может быть null");
-        }
+        throw new NullPointerException("Сравниваемый объект не может быть null");
+    }
 
-        return CAR_COMPARATOR.compare(this, otherCar);
+        return Comparator.comparing(Car::getModel, String.CASE_INSENSITIVE_ORDER)
+                .thenComparingInt(Car::getPower)
+                .thenComparingInt(Car::getProductionYear)
+                .compare(this, otherCar);
     }
 }

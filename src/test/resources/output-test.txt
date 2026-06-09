@@ -1,0 +1,9 @@
+org.astonlearning.quiclsortapplication.Car@156643d4
+org.astonlearning.quiclsortapplication.Car@123a439b
+org.astonlearning.quiclsortapplication.Car@7de26db8
+Car{model='BMW', power=100 л.с., year=2010}
+Car{model='Audi', power=200 л.с., year=2015}
+Car{model='Toyota', power=300 л.с., year=2020}
+Car{model='BMW', power=100 л.с., year=2010}
+Car{model='Audi', power=200 л.с., year=2015}
+Car{model='Toyota', power=300 л.с., year=2020}
