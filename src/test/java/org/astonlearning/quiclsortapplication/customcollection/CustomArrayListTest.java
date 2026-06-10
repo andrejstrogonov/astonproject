@@ -18,7 +18,7 @@ public class CustomArrayListTest {
         boolean el1 = list.add("First");
         boolean el2 = list.add("Second");
 
-        if (el1 && el2 && list.size() == 2 && "First".equals(list.get(0)) && "Second".equals(list2.get(1))) {
+        if (el1 && el2 && list.size() == 2 && "First".equals(list.get(0)) && "Second".equals(list.get(1))) {
             System.out.println("PASS: elements added correctly");
             return true;
         } else {
