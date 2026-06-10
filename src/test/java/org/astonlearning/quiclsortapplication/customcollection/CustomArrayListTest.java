@@ -1,6 +1,17 @@
 package org.astonlearning.quiclsortapplication.customcollection;
 
 public class CustomArrayListTest {
+    public static void main(String[] args) {
+        emptyListTest();
+        addElementTest();
+        autoExpanceTest();
+        indexGetOutOfBoundExceptionTest();
+        setTest();
+        indexSetOutOfBoundExceptionTest();
+        removeTest();
+        indexGetOutOfBoundExceptionTest();
+    }
+
     public static boolean emptyListTest(){
         CustomArrayList<String> list = new CustomArrayList<>();
 
