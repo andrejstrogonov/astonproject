@@ -1,11 +1,11 @@
 package org.astonlearning.quiclsortapplication.input;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
 import org.astonlearning.quiclsortapplication.Car;
+import org.astonlearning.quiclsortapplication.customcollection.CustomArrayList;
 import org.astonlearning.quiclsortapplication.validation.ValidationUtil;
 
 public class ManualInput implements InputProvider {
@@ -19,7 +19,7 @@ public class ManualInput implements InputProvider {
 
     @Override
     public List<Car> load() {
-        List<Car> cars = new ArrayList<>();
+        List<Car> cars = new CustomArrayList<>();
 
         Stream.generate(this::readCar)
                     .filter(ValidationUtil::isValid)
